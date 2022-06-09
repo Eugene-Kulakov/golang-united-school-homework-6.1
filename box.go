@@ -99,13 +99,12 @@ func (b *box) SumArea() float64 {
 func (b *box) RemoveAllCircles() error {
 	success := false
 	for index, shape := range b.shapes {
-		switch shape.(type) {
-		case Circle:
+		_, ok := shape.(Circle)
+		if ok {
 			copy(b.shapes[index:], b.shapes[index+1:])
 			b.shapes[len(b.shapes)-1] = nil
 			b.shapes = b.shapes[:len(b.shapes)-1]
 			success = true
-		default:
 		}
 	}
 	if !success {
