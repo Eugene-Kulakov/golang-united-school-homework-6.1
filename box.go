@@ -2,7 +2,6 @@ package golang_united_school_homework
 
 import (
 	"errors"
-	"fmt"
 )
 
 // box contains list of shapes and able to perform operations on them
@@ -106,6 +105,7 @@ func (b *box) RemoveAllCircles() error {
 		_, ok := shape.(*Circle)
 		if !ok {
 			newShapes = append(newShapes, shape)
+		} else {
 			success = true
 		}
 	}
@@ -114,28 +114,4 @@ func (b *box) RemoveAllCircles() error {
 	}
 	b.shapes = newShapes
 	return nil
-}
-
-func main() {
-	circle1 := &Circle{Radius: 20}
-	circle2 := &Circle{Radius: 30}
-	circle3 := &Circle{Radius: 5}
-	circle4 := &Circle{Radius: 2}
-	triangle := &Triangle{Side: 30}
-	rectangle := &Rectangle{Height: 10, Weight: 20}
-	box := NewBox(6)
-	_ = box.AddShape(circle1)
-	_ = box.AddShape(circle2)
-	_ = box.AddShape(circle3)
-	_ = box.AddShape(circle4)
-	_ = box.AddShape(triangle)
-	_ = box.AddShape(rectangle)
-	actualErr := box.RemoveAllCircles()
-	if len(box.shapes) != 2 {
-		fmt.Println(box.shapes)
-		fmt.Printf("expected length is 2, but received %d", len(box.shapes))
-	}
-	if actualErr != nil {
-		fmt.Printf("received unexpected err %v", actualErr)
-	}
 }
